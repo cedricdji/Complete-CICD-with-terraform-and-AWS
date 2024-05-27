@@ -92,4 +92,4 @@ jobs:
                 sudo docker stop myappcontainer1 || true
                 sudo docker rm myappcontainer1 || true
                 sudo docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
-                sudo docker run -d -p 80:8080 --name myappcontainer1 $REGISTRY/$REPOSITORY:$IMAGE_TAG
+                sudo docker run -d --name myappcontainer1 -p 80:8080  $REGISTRY/$REPOSITORY:$IMAGE_TAG
