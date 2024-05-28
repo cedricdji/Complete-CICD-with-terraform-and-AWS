@@ -35,7 +35,7 @@ jobs:
         - name: Terraform Plan
           id: plan
           run: |-
-            terraform plan \
+            terraform plan -destroy \
               -var="region=eu-west-3" \
               -var="public_key=$PUBLIC_SSH_KEY" \
               -var="private_key=$PRIVATE_SSH_KEY" \
@@ -100,7 +100,7 @@ jobs:
                     unzip -o awscliv2.zip
                     sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
                 fi
-                sudo $(aws ecr get-login-password --region eu-west-3 | sudo docker login --username AWS --password-stdin 654654283849.dkr.ecr.eu-west-3.amazonaws.com);
+                sudo $(aws ecr get-login-password --region eu-west-3 | sudo docker login --username AWS --password-stdin $REGISTRY) );
                 sudo docker stop myappcontainer || true
                 sudo docker rm myappcontainer || true
                 sudo docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
