@@ -35,7 +35,7 @@ jobs:
         - name: Terraform Plan
           id: plan
           run: |-
-            terraform plan \
+            terraform plan -destroy \
               -var="region=eu-west-3" \
               -var="public_key=$PUBLIC_SSH_KEY" \
               -var="private_key=$PRIVATE_SSH_KEY" \
@@ -65,11 +65,7 @@ jobs:
 
            # Ajoutez cette étape pour imprimer l'adresse IP du serveur
         - name: Print Server IP
-          run: |-
-            echo $SERVER_PUBLIC_IP
-            echo "ip:$SERVER_PUBLIC_IP" 
-            echo "Putainnnnnnnnnn"
-            echo
+          run: echo "ip_public_server :$SERVER_PUBLIC_IP" 
 
         - name: Login to aws ECR
           id: login-ecr
@@ -99,9 +95,7 @@ jobs:
             script: |-
                 sudo apt update
                 sudo apt install docker.io -y
-                sudo apt install -y python3-venv
-                python3 -m venv ~/awscli-venv
-                source ~/awscli-venv/bin/activate
+                sudo apt install awscli -y
                 sudo $(aws ecr get-login --no-include-email --region eu-west-3);
                 sudo docker stop myappcontainer || true
                 sudo docker rm myappcontainer || true
