@@ -35,7 +35,7 @@ jobs:
         - name: Terraform Plan
           id: plan
           run: |-
-            terraform plan -destroy \
+            terraform plan \
               -var="region=eu-west-3" \
               -var="public_key=$PUBLIC_SSH_KEY" \
               -var="private_key=$PRIVATE_SSH_KEY" \
@@ -51,7 +51,7 @@ jobs:
         - name: Set output
           id: set-ip
           run: |-
-            echo "::set-output name=instance_public_ip::$(terraform output instance_public_ip)"
+           echo "::set-output name=instance_public_ip::$(terraform output instance_public_ip)"
           working-directory: ./terraform
     deploy-app:
         runs-on: ubuntu-latest
