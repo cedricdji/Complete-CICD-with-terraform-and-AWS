@@ -100,7 +100,7 @@ jobs:
                     unzip -o awscliv2.zip
                     sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
                 fi
-                sudo $(aws ecr get-login --no-include-email --region us-east-1);
+                sudo $(aws ecr get-login --no-include-email --region eu-west-3);
                 sudo docker stop myappcontainer || true
                 sudo docker rm myappcontainer || true
                 sudo docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
