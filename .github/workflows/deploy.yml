@@ -70,7 +70,7 @@ jobs:
         - name: Login to aws ECR
           id: login-ecr
           uses: aws-actions/amazon-ecr-login@v1
-# hard for ecr login
+# hard for ecr login change 654654283849.dkr.ecr.eu-west-3.amazonaws.com
         - name: Build, push docker image
           env:
             REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -100,7 +100,7 @@ jobs:
                     unzip -o awscliv2.zip
                     sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
                 fi
-                aws ecr get-login-password --region eu-west-3 | sudo docker login --username AWS --password-stdin $REPOSITORY
+                aws ecr get-login-password --region eu-west-3 | sudo docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }}
                 sudo docker stop myappcontainer || true
                 sudo docker rm myappcontainer || true
                 sudo docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
