@@ -18,8 +18,12 @@ jobs:
         outputs:
           SERVER_PUBLIC_IP: ${{ steps.set-ip.outputs.instance_public_ip }}
         steps:
+
         - name: Checkout
           uses: actions/checkout@v2
+           # Ajoutez cette étape pour imprimer l'adresse IP du serveur
+        - name: Print Server IP
+          run: 'echo "Server IP: ${{ secrets.SERVER_PUBLIC_IP }}"'
 
         - name: Setup Terraform
           uses: hashicorp/setup-terraform@v1
