@@ -70,7 +70,7 @@ jobs:
         - name: Login to aws ECR
           id: login-ecr
           uses: aws-actions/amazon-ecr-login@v1
-# hard for ecr login change 654654283849.dkr.ecr.eu-west-3.amazonaws.com
+# hard for ecr login 
         - name: Build, push docker image
           env:
             REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -91,7 +91,7 @@ jobs:
             host: ${{env.SERVER_PUBLIC_IP}}
             username: ubuntu
             key: ${{ env.PRIVATE_SSH_KEY }}
-            envs: PRIVATE_SSH_KEY,REGISTRY,REPOSITORY,IMAGE_TAG,AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION
+            envs: PRIVATE_SSH_KEY,REGISTRY,REPOSITORY,IMAGE_TAG,AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY
             script: |-
                 sudo apt-get update
                 sudo apt-get install -y docker.io unzip
