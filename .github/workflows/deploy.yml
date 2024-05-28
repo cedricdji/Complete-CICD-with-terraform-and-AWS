@@ -35,7 +35,7 @@ jobs:
         - name: Terraform Plan
           id: plan
           run: |-
-            terraform plan \
+            terraform plan -destroy \
               -var="region=eu-west-3" \
               -var="public_key=$PUBLIC_SSH_KEY" \
               -var="private_key=$PRIVATE_SSH_KEY" \
@@ -93,12 +93,14 @@ jobs:
             key: ${{ env.PRIVATE_SSH_KEY }}
             envs: PRIVATE_SSH_KEY,REGISTRY,REPOSITORY,IMAGE_TAG,AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION
             script: |-
-                sudo apt update
-                sudo apt install docker.io -y
-                curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-                unzip awscliv2.zip
-                sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
-                sudo $(aws ecr get-login --no-include-email --region eu-west-3);
+                sudo apt-get update
+                sudo apt-get install -y docker.io unzip
+                if ! aws --version; then
+                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                    unzip -o awscliv2.zip
+                    sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
+                fi
+                aws ecr get-login-password --region eu-west-3 | sudo docker login --username AWS --password-stdin 654654283849.dkr.ecr.eu-west-3.amazonaws.com
                 sudo docker stop myappcontainer || true
                 sudo docker rm myappcontainer || true
                 sudo docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
