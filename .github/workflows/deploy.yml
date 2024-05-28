@@ -61,9 +61,9 @@ jobs:
         - name: Set IP env variable
           run: echo "SERVER_PUBLIC_IP=${{ needs.deploy-infra.outputs.SERVER_PUBLIC_IP }}" >> $GITHUB_ENV
 
-           # Imprimer l'adresse IP du serveur
+           # Ajoutez cette étape pour imprimer l'adresse IP du serveur
         - name: Print Server IP
-          run: echo ${{ needs.deploy-infra.outputs.SERVER_PUBLIC_IP }}"
+          run: echo ${{env.SERVER_PUBLIC_IP}}
 
         - name: Login to aws ECR
           id: login-ecr
