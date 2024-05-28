@@ -100,7 +100,7 @@ jobs:
                     unzip -o awscliv2.zip
                     sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
                 fi
-                aws ecr get-login-password --region eu-west-3 | sudo docker login --username AWS --password-stdin 654654283849.dkr.ecr.eu-west-3.amazonaws.com
+                aws ecr get-login-password --region eu-west-3 | sudo docker login --username AWS --password-stdin $REPOSITORY
                 sudo docker stop myappcontainer || true
                 sudo docker rm myappcontainer || true
                 sudo docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
