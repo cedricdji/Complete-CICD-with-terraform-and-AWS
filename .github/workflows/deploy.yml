@@ -63,7 +63,10 @@ jobs:
 
            # Ajoutez cette étape pour imprimer l'adresse IP du serveur
         - name: Print Server IP
-          run: echo ${{env.SERVER_PUBLIC_IP}}
+          run: |-
+            echo "Server IP: ${{ needs.deploy-infra.outputs.SERVER_PUBLIC_IP }}"
+            echo ip: $SERVER_PUBLIC_IP
+            echo "Putainnnnnnnnnn"
 
         - name: Login to aws ECR
           id: login-ecr
