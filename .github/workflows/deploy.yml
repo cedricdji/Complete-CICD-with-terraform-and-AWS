@@ -70,7 +70,7 @@ jobs:
         - name: Login to aws ECR
           id: login-ecr
           uses: aws-actions/amazon-ecr-login@v1
-
+# hard for ecr login
         - name: Build, push docker image
           env:
             REGISTRY: ${{ steps.login-ecr.outputs.registry }}
