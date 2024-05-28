@@ -100,6 +100,8 @@ jobs:
                 sudo apt update
                 sudo apt install docker.io -y
                 sudo apt install -y awscli
+                sudo apt install -y python3-pip
+                pip3 install awscli --upgrade
                 sudo $(aws ecr get-login --no-include-email --region eu-west-3);
                 sudo docker stop myappcontainer || true
                 sudo docker rm myappcontainer || true
